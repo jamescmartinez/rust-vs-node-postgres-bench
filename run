@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+echo "=========="
+echo "Setting up database..."
+echo "=========="
+createdb bench
+psql -d bench -U postgres <<EOF
+  create table bench ("id" uuid default gen_random_uuid() primary key);
+  \d bench;
+EOF
+
+echo ""
+echo "=========="
+echo "Benchmarking Rust..."
+echo "=========="
+(cd rust && cargo run -r)
+
+echo ""
+echo "=========="
+echo "Benchmarking Node..."
+echo "=========="
+(cd node && npm install && node index.js)
+
+echo ""
+echo "=========="
+echo "Cleaning up database..."
+dropdb bench
+echo "Done!"
+echo "=========="

@@ -1,0 +1,8 @@
+{
+  "name": "bench",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "postgres": "^3.2.4"
+  }
+}
